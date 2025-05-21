@@ -22,6 +22,21 @@ $(".btn").click(function () {
   checkAnswer(userClickedPattern.length - 1);
 });
 
+function playWholeSequence() {
+  for (var i = 0; i < gamePattern.length; i++) {
+    (function (i) {
+      setTimeout(function () {
+        $("#" + gamePattern[i])
+          .fadeOut(100)
+          .fadeIn(100)
+          .fadeOut(100)
+          .fadeIn(100);
+        playSound(gamePattern[i]);
+      }, i * 500);
+    })(i);
+  }
+}
+
 function nextSequence() {
   userClickedPattern = [];
   level++;
@@ -29,14 +44,7 @@ function nextSequence() {
   randomNumber = Math.floor(Math.random() * 4);
   randomChosenColor = buttonColors[randomNumber];
   gamePattern.push(randomChosenColor);
-
-  $("#" + randomChosenColor)
-    .fadeOut(100)
-    .fadeIn(100)
-    .fadeOut(100)
-    .fadeIn(100);
-
-  playSound(randomChosenColor);
+  playWholeSequence();
 }
 
 function playSound(color) {
